@@ -16,13 +16,21 @@ const userSchema = mongoose.Schema({
         type: Buffer,
         default: defaultprofile
     },
-    cart: {
-        type : Array,
-        default: []
-    },
-    orders:[{
-        type : Array,
-        default: []
+    cart: [{
+        product:{
+            type : mongoose.Schema.Types.ObjectId,
+            ref : "product",
+            required: true
+        },
+        quantity :{
+            type: Number,
+            default: 1,
+            min: 1
+        }
+    }],
+    orders: [{
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "product"
     }],
 })
 

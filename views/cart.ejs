@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Cart | SneakPeeks</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black text-white">
+
+  <!-- Navbar -->
+  <%- include("partials/header") %>
+  <%- include("partials/alerts") %>
+
+  <main class="pt-24 px-5 md:px-12 max-w-7xl mx-auto">
+
+    <!-- Page Heading -->
+    <div class="mb-10">
+      <h1 class="text-3xl md:text-4xl font-bold">Your Cart</h1>
+      <p class="text-gray-400 mt-2 text-sm md:text-base">
+        Review your picks before checkout
+      </p>
+    </div>
+
+    <% if (!user.cart || user.cart.length === 0) { %>
+      <!-- Empty Cart -->
+      <div class="text-center py-20">
+        <p class="text-gray-400 mb-6">Your cart is empty</p>
+        <a href="/shop"
+           class="inline-block px-6 py-3 bg-white text-black
+                  font-semibold rounded-xl hover:bg-gray-200 transition">
+          Continue Shopping
+        </a>
+      </div>
+    <% } else { %>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+      <!-- Cart Items -->
+      <section class="lg:col-span-2 space-y-6">
+
+        <% user.cart.forEach(function(item) { %>
+
+          <div class="flex gap-4 border border-white/10 rounded-xl p-4">
+
+            <!-- Product Image -->
+            <div class="w-24 h-24 bg-gray-900 rounded-lg overflow-hidden">
+              <img
+                src="data:image/jpeg;base64,<%= item.product.image.toString('base64') %>"
+                alt="<%= item.name %>"
+                class="w-full h-full object-contain"
+              />
+            </div>
+
+            <!-- Details -->
+            <div class="flex-1">
+
+              <div class="flex justify-between items-start">
+                <h3 class="font-semibold text-lg">
+                  <%= item.product.name %>
+                </h3>
+
+                <!-- Remove -->
+                <a
+                  href="/cart/remove/<%= item._id %>"
+                  class="text-sm text-red-400 hover:underline"
+                >
+                  Remove
+                </a>
+              </div>
+
+              <div class="text-sm text-gray-400 mt-1">
+                Price: ₹ <%= item.product.discount %>
+              </div>
+
+              <!-- Quantity -->
+              <div class="flex items-center gap-3 mt-4">
+
+                <a href="/cart/decrease/<%= item._id %>"
+                   class="w-8 h-8 flex items-center justify-center
+                          border border-white/20 rounded-md
+                          hover:bg-white hover:text-black transition">−</a>
+
+                <span class="min-w-[20px] text-center">
+                  <%= item.quantity %>
+                </span>
+
+                <a href="/cart/increase/<%= item._id %>"
+                   class="w-8 h-8 flex items-center justify-center
+                          border border-white/20 rounded-md
+                          hover:bg-white hover:text-black transition">+</a>
+
+              </div>
+
+            </div>
+
+            <!-- Item Total -->
+            <div class="font-semibold text-right">
+              ₹ <%= item.product.discount * item.quantity %>
+            </div>
+
+          </div>
+
+        <% }) %>
+
+      </section>
+
+      <!-- Order Summary -->
+      <aside class="border border-white/10 rounded-xl p-6 h-fit">
+
+        <h2 class="text-xl font-semibold mb-6">
+          Order Summary
+        </h2>
+
+        <div class="space-y-3 text-sm">
+
+          <div class="flex justify-between">
+            <span class="text-gray-400">Subtotal</span>
+            <span>₹<%=subtotal%></span>
+          </div>
+
+          <div class="flex justify-between">
+            <span class="text-gray-400">Shipping</span>
+            <span>Free</span>
+          </div>
+
+          <div class="flex justify-between">
+            <span class="text-gray-400">Tax</span>
+            <span>₹<%=Math.round((5/100)*subtotal)%></span>
+          </div>
+
+          <div class="border-t border-white/10 pt-4
+                      flex justify-between font-semibold text-base">
+            <span>Total</span>
+            <span>₹<%=subtotal+Math.round((5/100)*subtotal)%></span>
+          </div>
+
+        </div>
+
+        <a
+          href="/checkout"
+          class="mt-6 block text-center bg-white text-black
+                 font-bold py-3 rounded-xl
+                 hover:bg-gray-200 transition"
+        >
+          Proceed to Checkout
+        </a>
+
+      </aside>
+
+    </div>
+
+    <% } %>
+
+  </main>
+
+  <!-- Footer -->
+  <%- include("partials/footer") %>
+</body>
+</html>
