@@ -1,0 +1,25 @@
+<% if (error && error.length) { %>
+  <div class="alert fixed top-4 right-4 z-50
+              bg-red-600 text-white text-xs md:text-sm
+              px-4 py-2 rounded-md shadow-lg
+              animate-fadeIn">
+    <%= error[0] %>
+  </div>
+<% } %>
+
+<% if (success && success.length) { %>
+  <div class="alert fixed top-4 right-4 z-50
+              bg-green-600 text-white text-xs md:text-sm
+              px-4 py-2 rounded-md shadow-lg
+              animate-fadeIn">
+    <%= success[0] %>
+  </div>
+<% } %>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+      document.querySelectorAll(".alert")
+        .forEach(el => el.remove());
+    }, 2000);
+  });
+</script>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile | SneakPeeks</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black text-white">
+
+  <!-- Navbar -->
+  <%- include("partials/header") %>
+  <%- include("partials/alerts") %>
+
+  <main class="pt-24 px-5 md:px-12 max-w-7xl mx-auto">
+
+    <!-- Page Heading -->
+    <div class="mb-10">
+      <h1 class="text-3xl md:text-4xl font-bold">
+        My Profile
+      </h1>
+      <p class="text-gray-400 mt-2 text-sm md:text-base">
+        Manage your account and view your orders
+      </p>
+    </div>
+
+    <!-- Profile Info -->
+     <h2 class="text-xl font-semibold mb-6">
+        Account Details
+      </h2>
+    <section class="border border-white/10 rounded-xl p-6 mb-16">
+
+      <div class="flex flex-col sm:flex-row gap-8 items-center sm:items-start">
+
+        <!-- Profile Photo -->
+        <div class="flex-shrink-0">
+          <div class="w-28 h-28 rounded-full overflow-hidden border border-white/20">
+            <img
+              src="data:image/png;base64,<%= user.profile.toString('base64') %>"
+              alt="Profile Photo"
+              class="w-full h-full object-cover"/>
+          </div>
+        </div>
+
+        <!-- User Details -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm md:text-base w-full">
+
+          <div>
+            <p class="text-gray-400 mb-1">Full Name</p>
+            <p class="font-medium"><%= user.name %></p>
+          </div>
+
+          <div>
+            <p class="text-gray-400 mb-1">Email</p>
+            <p class="font-medium"><%= user.email %></p>
+          </div>
+
+          <div>
+            <p class="text-gray-400 mb-1">Mobile No.</p>
+            <p class="font-medium"><%= user.contact %></p>
+          </div>
+
+          <div>
+            <p class="text-gray-400 mb-1">Address</p>
+            <p class="font-medium"><%= user.Address %></p>
+          </div>
+
+        </div>
+
+      </div>
+      <% if (!user.Address || !user.profileImage) { %>
+        <div class="mt-8 flex justify-end">
+            <a
+            href="/users/completeprofile"
+            class="px-6 py-3 text-sm font-semibold
+                    bg-white text-black rounded-xl
+                    hover:bg-gray-200 transition"
+            >
+            Edit Profile
+            </a>
+        </div>
+        <%}%>
+    </section>
+
+    <!-- Orders Section -->
+    <section>
+
+      <h2 class="text-xl font-semibold mb-6">
+        Order History
+      </h2>
+
+      <% if (!user.orders || user.orders.length === 0) { %>
+        <div class="text-gray-400 text-sm">
+          You haven’t placed any orders yet.
+        </div>
+      <% } else { %>
+
+        <div class="space-y-6">
+
+          <% user.orders.forEach(function(order) { %>
+
+            <div class="border border-white/10 rounded-xl p-5">
+
+              <!-- Order Header -->
+              <div class="flex flex-col sm:flex-row sm:justify-between gap-4 mb-4 text-sm">
+
+                <div>
+                  <p class="text-gray-400">Order ID</p>
+                  <p class="font-medium"><%= order._id %></p>
+                </div>
+
+                <div>
+                  <p class="text-gray-400">Date</p>
+                  <p class="font-medium"><%= order.createdAt %></p>
+                </div>
+
+                <div>
+                  <p class="text-gray-400">Status</p>
+                  <span class="px-3 py-1 text-xs rounded-full border border-white/20">
+                    <%= order.status %>
+                  </span>
+                </div>
+
+              </div>
+
+              <!-- Order Items -->
+              <div class="space-y-3">
+
+                <% order.items.forEach(function(item) { %>
+                  <div class="flex justify-between text-sm">
+
+                    <div>
+                      <p class="font-medium"><%= item.name %></p>
+                      <p class="text-gray-400 text-xs">
+                        Qty: <%= item.quantity %>
+                      </p>
+                    </div>
+
+                    <div class="font-medium">
+                      ₹ <%= item.price %>
+                    </div>
+
+                  </div>
+                <% }) %>
+
+              </div>
+
+              <!-- Total -->
+              <div class="border-t border-white/10 mt-4 pt-4 flex justify-between font-semibold text-sm">
+                <span>Total</span>
+                <span>₹ <%= order.totalAmount %></span>
+              </div>
+
+            </div>
+
+          <% }) %>
+
+        </div>
+
+      <% } %>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <%- include("partials/footer") %>
+
+</body>
+</html>

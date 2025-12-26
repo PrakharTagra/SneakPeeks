@@ -4,7 +4,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon app.js",
+    "server": "cross-env NODE_ENV=development DEBUG=development:* nodemon app.js",
     "tailwind": "npx @tailwindcss/cli -i ./public/stylesheets/input.css -o ./public/stylesheets/output.css --watch",
     "dev": "concurrently \"npm run server\" \"npm run tailwind\""
   },
@@ -23,15 +23,23 @@
   "dependencies": {
     "@tailwindcss/cli": "^4.1.18",
     "bcrypt": "^6.0.0",
+    "config": "^4.1.1",
+    "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.7",
+    "debug": "^4.4.3",
+    "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
     "express": "^5.2.1",
+    "express-session": "^1.18.2",
+    "joi": "^18.0.2",
     "jsonwebtoken": "^9.0.3",
+    "mongodb": "^7.0.0",
     "mongoose": "^9.0.2",
     "multer": "^2.0.2",
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
-    "concurrently": "^9.2.1"
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0"
   }
 }

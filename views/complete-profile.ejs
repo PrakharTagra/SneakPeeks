@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Complete Profile | SneakPeeks</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black text-white min-h-screen flex items-center justify-center px-4 py-10">
+
+  <div class="w-full max-w-xl border border-white/10 rounded-2xl p-6 md:p-8">
+
+    <!-- Heading -->
+    <div class="mb-8 text-center">
+      <h1 class="text-2xl md:text-3xl font-bold">
+        <%= user.contact || user.Address || user.profileImage ? "Edit Profile" : "Complete Your Profile" %>
+      </h1>
+      <p class="text-gray-400 mt-2 text-sm md:text-base">
+        Keep your details up to date for a better experience
+      </p>
+    </div>
+
+    <!-- Form -->
+    <form
+      method="post"
+      action="/users/complete-profile"
+      enctype="multipart/form-data"
+      class="space-y-5"
+    >
+
+      <!-- Profile Photo -->
+      <div>
+        <label class="block text-sm text-gray-400 mb-2">
+          Profile Photo
+        </label>
+
+        <div class="flex items-center gap-4">
+          <div class="w-20 h-20 rounded-full overflow-hidden border border-white/20">
+            <img
+              src="data:image/png;base64,<%= user.profile.toString('base64') %>"
+              alt="Profile Photo"
+              class="w-full h-full object-cover"/>
+          </div>
+
+          <label class="cursor-pointer text-sm px-4 py-2 border border-white/20 rounded-lg
+                        hover:bg-white hover:text-black transition">
+            Upload
+            <input type="file" name="profile" class="hidden" />
+          </label>
+        </div>
+      </div>
+
+      <!-- Full Name (readonly – usually fixed after signup) -->
+      <div>
+        <label class="block text-sm text-gray-400 mb-2">
+          Full Name
+        </label>
+        <input
+          name="name"
+          required
+          type="text"
+          value="<%= user.name %>"
+          class="w-full bg-transparent border border-white/20
+                 px-4 py-3 rounded-lg focus:outline-none focus:border-white"
+        />
+      </div>
+
+      <!-- Email (readonly) -->
+      <div>
+        <label class="block text-sm text-gray-400 mb-2">
+          Email
+        </label>
+        <input
+          name="email"
+          required
+          type="email"
+          value="<%= user.email %>"
+          class="w-full bg-transparent border border-white/20
+                 px-4 py-3 rounded-lg focus:outline-none focus:border-white"
+        />
+      </div>
+
+      <!-- Mobile Number -->
+      <div>
+        <label class="block text-sm text-gray-400 mb-2">
+          Mobile Number
+        </label>
+        <input
+          name="contact"
+          required
+          type="text"
+          value="<%= user.contact || '' %>"
+          placeholder="Enter your mobile number"
+          class="w-full bg-transparent border border-white/20
+                 px-4 py-3 rounded-lg focus:outline-none focus:border-white"
+        />
+      </div>
+
+      <!-- Address -->
+      <div>
+        <label class="block text-sm text-gray-400 mb-2">
+          Address
+        </label>
+        <textarea
+          name="Address"
+          rows="3"
+          required
+          placeholder="Enter your full address"
+          class="w-full bg-transparent border border-white/20
+                 px-4 py-3 rounded-lg focus:outline-none focus:border-white resize-none"
+        ><%= user.Address || '' %></textarea>
+      </div>
+
+      <!-- Buttons -->
+      <div class="flex gap-4 pt-6">
+
+        <!-- Cancel -->
+        <a
+          href="/users/profile"
+          class="w-1/2 text-center border border-white/20
+                 py-3 rounded-xl hover:bg-white hover:text-black transition"
+        >
+          Cancel
+        </a>
+
+        <!-- Save -->
+        <input
+          type="submit"
+          class="w-1/2 bg-white text-black font-bold
+                 py-3 rounded-xl hover:bg-gray-200 transition"
+          value="Save Profile">
+      </div>
+
+    </form>
+
+  </div>
+
+</body>
+</html>

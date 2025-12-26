@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SneakPeeks | Admin Products</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black text-white">
+
+  <!-- Navbar -->
+  <%- include("partials/header") %>
+  <%- include("partials/alerts") %>
+
+
+  <main class="pt-24 px-5 md:px-12 max-w-7xl mx-auto">
+
+    <!-- Admin Options -->
+    <div class="flex gap-4 mb-10 text-sm">
+      <a href="/products/admin"
+         class="px-4 py-2 bg-white text-black rounded-full font-semibold">
+        All Products
+      </a>
+
+      <a href="/owners/admin"
+         class="px-4 py-2 border border-white/20 rounded-full
+                hover:bg-white hover:text-black transition">
+        Create New Product
+      </a>
+    </div>
+
+    <!-- Page Title -->
+    <div class="mb-6">
+      <h1 class="text-3xl md:text-4xl font-bold">
+        All Products
+      </h1>
+      <p class="text-gray-400 mt-2 text-sm md:text-base">
+        Manage your sneaker inventory
+      </p>
+    </div>
+
+    <!-- Products Table -->
+    <div class="overflow-x-auto border border-white/10 rounded-xl">
+
+      <table class="w-full text-sm min-w-[700px]">
+        <thead class="bg-white/5 text-gray-300">
+          <tr>
+            <th class="text-left px-5 py-4">Product</th>
+            <th class="text-left px-5 py-4">Price</th>
+            <th class="text-left px-5 py-4">Discounted Price</th>
+            <th class="text-right px-5 py-4">Actions</th>
+          </tr>
+        </thead>
+        <%if(products.length===0){%>
+            <td colspan="4" class="text-center py-3 text-zinc-600">No Products</td>
+            <%}else{%>
+                <%products.forEach(function(product){%>
+                    <tbody>
+
+          <!-- PRODUCT ROW -->
+          <tr class="border-t border-white/10 hover:bg-white/5 transition">
+            <td class="px-5 py-4">
+              <div class="flex items-center gap-4">
+                <div class="w-14 h-14 bg-gray-900 rounded-lg overflow-hidden
+                            flex items-center justify-center text-xs text-gray-500">
+                  <img src="data:image/jpeg;base64,<%=product.image.toString('base64')%>" alt="<%=product.name%>" class="h-full w-full"/>
+                </div>
+                <div>
+                  <p class="font-semibold">
+                    <%=product.name%>
+                  </p>
+                </div>
+              </div>
+            </td>
+
+            <td class="px-5 py-4">
+              ₹ <%=product.price%>
+            </td>
+
+            <td class="px-12 py-4">
+              ₹ <%=product.discount%>
+            </td>
+
+            <td class="px-5 py-4 text-right">
+              <div class="flex justify-end gap-3">
+
+                <!-- Edit -->
+                <a href="/products/admin/edit/<%=product._id%>"
+                   class="px-3 py-1.5 text-xs border border-white/20 rounded-lg
+                          hover:bg-white hover:text-black transition">
+                  Edit
+                </a>
+
+                <!-- Delete -->
+                <a href="/products/admin/delete/<%=product._id%>"
+                  class="px-3 py-1.5 text-xs border border-red-500 text-red-400
+                         rounded-lg hover:bg-red-500 hover:text-black transition">
+                  Delete
+                </a>
+
+              </div>
+            </td>
+          </tr>
+        </tbody><%})
+        %>
+        <%}%>
+      </table>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <%- include("partials/footer") %>
+
+</body>
+</html>

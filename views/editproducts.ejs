@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Product</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black text-white min-h-screen flex items-center justify-center px-4 py-10">
+
+  <div class="w-full max-w-xl border border-white/10 rounded-2xl p-6 md:p-8">
+
+    <h1 class="text-2xl md:text-3xl font-bold mb-6 text-center">
+      Edit Product
+    </h1>
+
+    <form
+      class="space-y-5"
+      method="post"
+      action="/products/admin/edit/<%= product._id %>"
+      enctype="multipart/form-data"
+    >
+
+      <!-- Existing Image (optional) -->
+      <% if (product.image) { %>
+        <img
+          src="data:image/jpeg;base64,<%= product.image.toString('base64') %>"
+          alt="Product Image"
+          class="h-24 mx-auto mb-4 rounded-lg object-cover"
+        />
+      <% } %>
+
+      <!-- Product Image -->
+      <div>
+        <label class="block text-sm text-gray-400 mb-2">
+          Replace Product Image
+        </label>
+
+        <label for="productImage">
+          <div class="border border-dashed border-white/20 rounded-xl
+                      h-10 flex items-center justify-center
+                      text-gray-500 text-sm cursor-pointer
+                      hover:border-white transition">
+            <span id="fileName">Click to upload new image</span>
+            <input type="file" name="image" id="productImage" class="hidden" />
+          </div>
+        </label>
+      </div>
+
+      <!-- Product Name -->
+      <div>
+        <label class="block text-sm text-gray-400 mb-2">Product Name</label>
+        <input
+          type="text"
+          name="name"
+          value="<%= product.name %>"
+          class="w-full bg-transparent border border-white/20
+                 px-4 py-3 rounded-lg
+                 focus:outline-none focus:border-white"
+        />
+      </div>
+
+      <!-- Prices -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm text-gray-400 mb-2">Price</label>
+          <input
+            type="number"
+            name="price"
+            value="<%= product.price %>"
+            class="w-full bg-transparent border border-white/20
+                   px-4 py-3 rounded-lg
+                   focus:outline-none focus:border-white"
+          />
+        </div>
+
+        <div>
+          <label class="block text-sm text-gray-400 mb-2">Discount Price</label>
+          <input
+            type="number"
+            name="discount"
+            value="<%= product.discount %>"
+            class="w-full bg-transparent border border-white/20
+                   px-4 py-3 rounded-lg
+                   focus:outline-none focus:border-white"
+          />
+        </div>
+      </div>
+
+      <!-- Panel Customisation -->
+      <div class="border border-white/10 rounded-xl p-4 space-y-4">
+
+        <h3 class="font-semibold text-lg">
+          Panel Customisation
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+          <!-- Background Color -->
+          <div>
+            <label class="block text-sm text-gray-400 mb-2">
+              Background Color
+            </label>
+            <input
+              type="color"
+              name="bgcolor"
+              value="<%= product.bgColor %>"
+              class="w-full h-12 rounded-lg border border-white/20 bg-black"
+            />
+          </div>
+
+          <!-- Panel Color -->
+          <div>
+            <label class="block text-sm text-gray-400 mb-2">
+              Panel Color
+            </label>
+            <input
+              type="color"
+              name="panelcolor"
+              value="<%= product.panelColor %>"
+              class="w-full h-12 rounded-lg border border-white/20 bg-black"
+            />
+          </div>
+
+          <!-- Text Color -->
+          <div>
+            <label class="block text-sm text-gray-400 mb-2">
+              Text Color
+            </label>
+            <input
+              type="color"
+              name="textcolor"
+              value="<%= product.textColor %>"
+              class="w-full h-12 rounded-lg border border-white/20 bg-black"
+            />
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Buttons -->
+      <div class="flex justify-between gap-4 pt-6">
+
+        <a href="/products/admin"
+           class="w-1/2 text-center border border-white/20
+                  py-3 rounded-xl hover:bg-white hover:text-black transition">
+          Cancel
+        </a>
+
+        <input
+          type="submit"
+          class="w-1/2 bg-white text-black font-bold
+                 py-3 rounded-xl hover:bg-gray-200 transition"
+          value="Save Changes"/>
+      </div>
+    </form>
+  </div>
+  <!-- Filename Preview Script -->
+  <script>
+    const fileInput = document.getElementById("productImage");
+    const fileName = document.getElementById("fileName");
+
+    fileInput?.addEventListener("change", () => {
+      fileName.textContent = fileInput.files.length
+        ? fileInput.files[0].name
+        : "Click to upload new image";
+    });
+  </script>
+
+</body>
+</html>

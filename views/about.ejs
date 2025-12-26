@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | SneakPeeks</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black text-white">
+
+  <!-- Navbar -->
+  <%- include("partials/header") %>
+  <%- include("partials/alerts") %>
+
+  <main class="pt-24 px-5 md:px-12 max-w-7xl mx-auto">
+
+    <!-- Hero Section -->
+    <section class="text-center mb-20">
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-wide">
+        About Sneak<span class="text-red-500">Peeks</span>
+      </h1>
+      <p class="mt-4 text-gray-400 max-w-2xl mx-auto text-sm md:text-base">
+        Where street culture meets premium craftsmanship.
+        SneakPeeks is built for those who don’t just wear sneakers — they live in them.
+      </p>
+    </section>
+
+    <!-- Brand Story -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-20 items-center">
+
+      <div>
+        <h2 class="text-2xl font-bold mb-4">Our Story</h2>
+        <p class="text-gray-400 leading-relaxed text-sm md:text-base">
+          SneakPeeks was born from a deep love for sneaker culture, street fashion,
+          and self-expression. What started as a passion project has grown into
+          a platform that celebrates originality, comfort, and bold design.
+          <br /><br />
+          We believe sneakers are more than footwear — they’re identity, movement,
+          and attitude.
+        </p>
+      </div>
+
+      <div class="h-64 md:h-80 rounded-xl bg-gray-900 flex items-center justify-center">
+        <img src="/images/White-and-blue-color-sneaker-shoes-on-transparent-background-PNG.png" class="w-full h-full rounded-xl"/>
+      </div>
+
+    </section>
+
+    <!-- Mission / Vision -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-20">
+
+      <div class="border border-white/10 rounded-xl p-6">
+        <h3 class="text-xl font-semibold mb-3">Our Mission</h3>
+        <p class="text-gray-400 text-sm md:text-base">
+          To deliver authentic, stylish, and comfortable sneakers that empower
+          individuals to express themselves confidently — on the streets, at work,
+          or anywhere life takes them.
+        </p>
+      </div>
+
+      <div class="border border-white/10 rounded-xl p-6">
+        <h3 class="text-xl font-semibold mb-3">Our Vision</h3>
+        <p class="text-gray-400 text-sm md:text-base">
+          To become a globally trusted sneaker brand known for innovation,
+          inclusivity, and culture-driven design.
+        </p>
+      </div>
+
+    </section>
+
+    <!-- What Sets Us Apart -->
+    <section class="mb-20">
+      <h2 class="text-2xl font-bold mb-8 text-center">
+        What Sets Us Apart
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+
+        <div class="border border-white/10 rounded-xl p-5 text-center">
+          <h4 class="font-semibold mb-2">Premium Quality</h4>
+          <p class="text-gray-400 text-sm">
+            Carefully sourced materials and attention to detail in every pair.
+          </p>
+        </div>
+
+        <div class="border border-white/10 rounded-xl p-5 text-center">
+          <h4 class="font-semibold mb-2">Authentic Designs</h4>
+          <p class="text-gray-400 text-sm">
+            Original designs inspired by street culture and modern fashion.
+          </p>
+        </div>
+
+        <div class="border border-white/10 rounded-xl p-5 text-center">
+          <h4 class="font-semibold mb-2">Comfort First</h4>
+          <p class="text-gray-400 text-sm">
+            Built for all-day wear without compromising on style.
+          </p>
+        </div>
+
+        <div class="border border-white/10 rounded-xl p-5 text-center">
+          <h4 class="font-semibold mb-2">Community Driven</h4>
+          <p class="text-gray-400 text-sm">
+            Created for sneaker lovers, by sneaker lovers.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Closing Statement -->
+    <section class="text-center mb-24">
+      <h2 class="text-2xl font-bold mb-4">
+        Step Into Your Identity
+      </h2>
+      <p class="text-gray-400 max-w-xl mx-auto text-sm md:text-base">
+        At SneakPeeks, every step tells a story.
+        Join us and experience sneakers that move with you — not just on your feet,
+        but in your lifestyle.
+      </p>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <%- include("partials/footer") %>
+
+</body>
+</html>

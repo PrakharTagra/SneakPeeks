@@ -1,7 +1,8 @@
+const { date } = require('joi')
 const mongoose = require('mongoose')
 
 const productSchema = mongoose.Schema({
-    image: Image,
+    image: Buffer,
     name: String,
     price: Number,
     discount: {
@@ -11,6 +12,10 @@ const productSchema = mongoose.Schema({
     bgcolor: String,
     panelcolor: String,
     textcolor: String,
+    Date:{
+        type:Date,
+        default:date.now
+    }
 })
 
 module.exports = mongoose.model("product",productSchema)

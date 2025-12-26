@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SneakPeeks | Create Product</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black text-white">
+
+  <!-- Navbar -->
+  <%- include("partials/header") %>
+  <%- include("partials/alerts") %>
+
+
+  <main class="pt-24 px-5 md:px-12 max-w-7xl mx-auto">
+
+    <!-- Top Options -->
+    <div class="flex gap-4 mb-10 text-sm">
+      <a href="/products/admin"
+         class="px-4 py-2 border border-white/20 rounded-full
+                hover:bg-white hover:text-black transition">
+        All Products
+      </a>
+
+      <a href="/owners/admin"
+         class="px-4 py-2 bg-white text-black rounded-full font-semibold">
+        Create New Product
+      </a>
+    </div>
+
+    <!-- Center Panel -->
+    <div class="flex justify-center">
+
+      <div class="w-full max-w-2xl border border-white/10 rounded-2xl
+                  p-6 md:p-8 bg-black">
+
+        <h1 class="text-2xl md:text-3xl font-bold mb-6 text-center">
+          Create New Product
+        </h1>
+
+        <form class="space-y-6" method="post" action="/products/create" enctype="multipart/form-data">
+
+          <!-- Product Image -->
+        <div class="block text-sm text-gray-400 mb-2">
+            Product Image
+        </div>
+          <label for="productImage">
+            <div class="border border-dashed border-white/20 rounded-xl
+                        h-10 flex flex-col items-center justify-center
+                        text-gray-500 text-sm cursor-pointer
+                        hover:border-white transition">
+              <span id="fileName">Click to upload image</span>
+              <input type="file" name="image" id="productImage" class="hidden" required/>
+            </div>
+        </label>
+
+          <!-- Product Name -->
+          <div>
+            <label class="block text-sm text-gray-400 mb-2">
+              Product Name
+            </label>
+            <input
+              type="text"
+              placeholder="Enter product name"
+              class="w-full bg-transparent border border-white/20
+                     px-4 py-3 rounded-lg
+                     placeholder-gray-500 focus:outline-none focus:border-white"
+              name="name"
+              required
+            />
+          </div>
+
+          <!-- Prices -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+            <div>
+              <label class="block text-sm text-gray-400 mb-2">
+                Product Price
+              </label>
+              <input
+                name="price"
+                type="number"
+                placeholder="₹ Price"
+                class="w-full bg-transparent border border-white/20
+                       px-4 py-3 rounded-lg
+                       placeholder-gray-500 focus:outline-none focus:border-white" required
+              />
+            </div>
+
+            <div>
+              <label class="block text-sm text-gray-400 mb-2">
+                Discounted Price
+              </label>
+              <input
+                name="discount"
+                type="number"
+                placeholder="₹ Discounted price"
+                class="w-full bg-transparent border border-white/20
+                       px-4 py-3 rounded-lg
+                       placeholder-gray-500 focus:outline-none focus:border-white" required
+              />
+            </div>
+
+          </div>
+
+          <!-- Panel Customization -->
+          <div class="border border-white/10 rounded-xl p-4 space-y-4">
+
+            <h3 class="font-semibold text-lg">
+              Panel Customization
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+              <div>
+                <label class="block text-sm text-gray-400 mb-2">
+                  Background Color
+                </label>
+                <input
+                  name="bgcolor"
+                  value="#000000"
+                  type="color"
+                  class="w-full h-12 bg-black rounded-lg border border-white/20" required
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm text-gray-400 mb-2">
+                  Panel Color
+                </label>
+                <input
+                  name="panelcolor"
+                  type="color"
+                  value="#000000"
+                  class="w-full h-12 bg-black rounded-lg border border-white/20" required
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm text-gray-400 mb-2">
+                  Text Color
+                </label>
+                <input
+                  name="textcolor"
+                  type="color"
+                  value="#ffffff"
+                  class="w-full h-12 bg-black rounded-lg border border-white/20" required
+                />
+              </div>
+
+            </div>
+
+          </div>
+          <input type="submit"
+            class="w-full bg-white text-black font-bold py-3 rounded-xl
+                   hover:bg-gray-200 active:scale-95 transition"
+            value="Create Product"/>
+        </form>
+      </div>
+    </div>
+  </main>
+  <!-- Footer -->
+  <%- include("partials/footer") %>
+
+<script>
+  const fileInput = document.getElementById("productImage");
+  const fileName = document.getElementById("fileName");
+
+  fileInput.addEventListener("change", () => {
+    fileName.textContent = fileInput.files.length
+      ? fileInput.files[0].name
+      : "No file selected";
+  });
+</script>
+</body>
+</html>
