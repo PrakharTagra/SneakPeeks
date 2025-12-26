@@ -69,18 +69,32 @@
         </div>
 
       </div>
-      <% if (!user.Address || !user.profileImage) { %>
-        <div class="mt-8 flex justify-end">
-            <a
-            href="/users/completeprofile"
-            class="px-6 py-3 text-sm font-semibold
-                    bg-white text-black rounded-xl
-                    hover:bg-gray-200 transition"
-            >
-            Edit Profile
-            </a>
-        </div>
-        <%}%>
+      <div class="mt-8 flex flex-col sm:flex-row justify-end gap-3">
+
+  <!-- Edit Profile -->
+  <a
+    href="/users/completeprofile"
+    class="px-6 py-3 text-sm font-semibold
+           bg-white text-black rounded-xl
+           hover:bg-gray-200 transition text-center"
+  >
+    Edit Profile
+  </a>
+
+  <!-- Logout -->
+  <a href="/users/logout">
+    <button
+      type="submit"
+      class="px-6 py-3 text-sm font-semibold
+             border border-red-500 text-red-400 rounded-xl
+             hover:bg-red-500 hover:text-black transition"
+    >
+      Logout
+    </button>
+  </a>
+
+</div>
+
     </section>
 
     <!-- Orders Section -->

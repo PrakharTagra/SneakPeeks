@@ -5,6 +5,9 @@ const ownerModel = require('../models/owners-model')
 const productModel = require('../models/product-model')
 const isloggedIn = require('../middlewares/isloggedIn')
 const userModel = require('../models/user-model')
+const bcrypt = require('bcrypt')
+const {generateToken} = require("../utils/generateToken")
+const isOwner = require('../middlewares/isOwner')
 
 if(process.env.NODE_ENV === "development"){
     router.post("/create",async (req,res)=>{
@@ -26,11 +29,42 @@ if(process.env.NODE_ENV === "development"){
 })  
 }
 
-router.get("/admin",isloggedIn,async(req,res)=>{
+router.get("/admin",isloggedIn,isOwner,async(req,res)=>{
     let user = await userModel.findOne({_id:req.user.id})
     let error = req.flash("error")
     let success = req.flash("success")
     res.render("createProduct",{user,success,error})
 })
+
+router.get("/admin/login",async(req,res)=>{
+    let error = req.flash("error")
+    let success = req.flash("success")
+    res.render("admin-login",{error,success})
+})
+
+router.post("/admin/login",async(req,res)=>{
+    try{
+        let {email,password} = req.body
+        let owner = await ownerModel.findOne({email})
+        if(!owner) {
+            req.flash("error","Incorrect Email or Password")
+            return res.redirect("/owners/admin/login")
+        }
+        if(password===owner.password){
+            let token = generateToken(owner)
+            res.cookie("token",token)
+            res.redirect("/products/admin")
+        }
+        else{
+            req.flash("error","Incorrect Email or Password")
+            return res.redirect("/owners/admin/login")
+        }
+    }
+    catch (err){
+        req.flash("error",err.message)
+        return res.redirect("/owners/admin/login")
+    }
+})
+
 
 module.exports = router

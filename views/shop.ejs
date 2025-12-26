@@ -33,35 +33,22 @@
       <!-- Filters -->
       <div class="flex flex-wrap gap-3">
         <button class="px-4 py-2 text-sm rounded-full border border-white/20
-                       hover:bg-white hover:text-black transition">
+                       hover:bg-white hover:text-black transition" id="all">
           All
         </button>
         <button class="px-4 py-2 text-sm rounded-full border border-white/20
-                       hover:bg-white hover:text-black transition">
+                       hover:bg-white hover:text-black transition" id="discounted">
           Discounted
         </button>
         <button class="px-4 py-2 text-sm rounded-full border border-white/20
-                       hover:bg-white hover:text-black transition">
+                       hover:bg-white hover:text-black transition" id="new">
           New Collection
         </button>
-        <button class="px-4 py-2 text-sm rounded-full border border-white/20
-                       hover:bg-white hover:text-black transition">
-          In Stock
-        </button>
       </div>
-
-      <!-- Sorting -->
-      <select class="bg-black border border-white/20 px-4 py-2 rounded-lg
-                     text-sm focus:outline-none">
-        <option>Sort by</option>
-        <option>Price: Low to High</option>
-        <option>Price: High to Low</option>
-        <option>Newest First</option>
-      </select>
     </div>
 
     <!-- Products Grid -->
-    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="allp">
 
       <!-- PRODUCT CARD -->
        <%if(products.length===0){%>
@@ -73,7 +60,7 @@
 
         <div class="bg-[<%=product.bgcolor%>] h-56 rounded-lg mb-4
                     flex items-center justify-center">
-          <img src="data:image/jpeg;base64,<%=product.image.toString('base64')%>" alt="<%=product.name%>" class="w-full h-full object-cover">
+          <img src="data:image/jpeg;base64,<%=product.image.toString('base64')%>" alt="<%=product.name%>" class="w-full h-full object-contain">
         </div>
 
         <h3 class="font-semibold text-lg truncate text-[<%=product.textcolor%>]">
@@ -82,7 +69,12 @@
 
         <div class="flex items-center justify-between text-[<%=product.textcolor%>]">
           <div>
-            <span class="font-bold text-3xl">
+            <%if(product.price === product.discount){%>
+              <span class="font-bold text-3xl">
+              ₹ <%=product.price%>
+            </span>
+              <%}else{%>
+                <span class="font-bold text-3xl">
               ₹ <%=product.discount%>
             </span>
             <span class="line-through opacity-60 mr-1">
@@ -91,6 +83,7 @@
             <span class="opacity-80">
               (<%=Math.round(((product.price-product.discount)/product.price)*100)%>% off)
             </span>
+                <%}%>
           </div>
 
           <a href="/product/<backend>"
@@ -101,7 +94,114 @@
             <%})%>
           <%}%>
     </section>
+    <section class="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 hidden" id="discountedp">
+
+      <!-- PRODUCT CARD -->
+       <%if(products.length===0){%>
+        <div>No Products</div>
+        <%}else{%>
+          <%products.forEach(function(product){%>
+            <%if(product.discount !== product.price){%>
+                <div class="border border-white/10 rounded-xl p-4
+                  hover:border-white/30 transition bg-[<%=product.panelcolor%>]">
+
+                <div class="bg-[<%=product.bgcolor%>] h-56 rounded-lg mb-4
+                            flex items-center justify-center">
+                  <img src="data:image/jpeg;base64,<%=product.image.toString('base64')%>" alt="<%=product.name%>" class="w-full h-full object-contain">
+                </div>
+
+                <h3 class="font-semibold text-lg truncate text-[<%=product.textcolor%>]">
+                  <%=product.name%>
+                </h3>
+
+                <div class="flex items-center justify-between text-[<%=product.textcolor%>]">
+                  <div>
+                    <span class="font-bold text-3xl">
+                      ₹ <%=product.discount%>
+                    </span>
+                    <span class="line-through opacity-60 mr-1">
+                      M.R.P ₹ <%=product.price%>
+                    </span>
+                    <span class="opacity-80">
+                      (<%=Math.round(((product.price-product.discount)/product.price)*100)%>% off)
+                    </span>
+                  </div>
+
+                  <a href="/product/<backend>"
+                    class="text-4xl border border-white/20 w-12 h-12 flex justify-center align-middle
+                            hover:bg-white hover:text-black transition rounded-full">+</a>
+                </div>
+              </div>
+              <%}%>
+            <%})%>
+          <%}%>
+    </section>
+    <section class="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 hidden" id="newp">
+
+      <!-- PRODUCT CARD -->
+       <%if(products.length===0){%>
+        <div>No Products</div>
+        <%}else{%>
+          <%products.reverse().forEach(function(product){%>
+            <%if((new Date()-product.Date)/(1000*60*60*60)<=7){%>
+              <div class="border border-white/10 rounded-xl p-4
+                  hover:border-white/30 transition bg-[<%=product.panelcolor%>]">
+
+                <div class="bg-[<%=product.bgcolor%>] h-56 rounded-lg mb-4
+                            flex items-center justify-center">
+                  <img src="data:image/jpeg;base64,<%=product.image.toString('base64')%>" alt="<%=product.name%>" class="w-full h-full object-contain">
+                </div>
+
+                <h3 class="font-semibold text-lg truncate text-[<%=product.textcolor%>]">
+                  <%=product.name%>
+                </h3>
+
+                <div class="flex items-center justify-between text-[<%=product.textcolor%>]">
+                  <div>
+                    <span class="font-bold text-3xl">
+                      ₹ <%=product.discount%>
+                    </span>
+                    <span class="line-through opacity-60 mr-1">
+                      M.R.P ₹ <%=product.price%>
+                    </span>
+                    <span class="opacity-80">
+                      (<%=Math.round(((product.price-product.discount)/product.price)*100)%>% off)
+                    </span>
+                  </div>
+                  <a href="/product/<backend>"
+                    class="text-4xl border border-white/20 w-12 h-12 flex justify-center align-middle
+                            hover:bg-white hover:text-black transition rounded-full">+</a>
+                </div>
+              </div>
+              <%}%>
+            <%})%>
+          <%}%>
+    </section>
   </main>
   <%- include("partials/footer") %>
+  <script>
+    let all = document.getElementById("all")
+    let allp = document.getElementById("allp")
+    let discounted = document.getElementById("discounted")
+    let discountedp = document.getElementById("discountedp")
+    let New = document.getElementById("new")
+    let newp = document.getElementById("newp")
+    all.addEventListener("click",()=>{
+      allp.style.display="grid"
+      discountedp.style.display="none"
+      newp.style.display="none"
+    })
+    discounted.addEventListener("click",()=>{
+      console.log("hello")
+      allp.style.display="none"
+      newp.style.display="none"
+      discountedp.style.display="grid"
+    })
+    New.addEventListener("click",()=>{
+      allp.style.display="none"
+      newp.style.display="grid"
+      discountedp.style.display="none"
+    })
+  </script>
 </body>
 </html>

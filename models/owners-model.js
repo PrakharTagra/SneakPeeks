@@ -7,6 +7,7 @@ const ownerSchema = mongoose.Schema({
     contact: Number,
     profile: String,
     gstin : String,
+    isOwner : Boolean,
     products: {
         type : Array,
         default: []

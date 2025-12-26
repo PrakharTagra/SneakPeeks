@@ -14,7 +14,7 @@ const productSchema = mongoose.Schema({
     textcolor: String,
     Date:{
         type:Date,
-        default:date.now
+        default:Date.now
     }
 })
 
