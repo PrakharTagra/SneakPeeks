@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+require('dotenv').config()
 const config = require('config')
 
 const dbgr = require('debug')("development:mongoose")
