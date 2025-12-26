@@ -28,6 +28,24 @@ if(process.env.NODE_ENV === "development"){
     res.status(200).send(createdOwner)
 })  
 }
+router.post("/create", async (req, res) => {
+    const ownerExists = await ownerModel.findOne()
+
+    if (ownerExists) {
+        return res.status(403).send("Owner already exists")
+    }
+
+    const { name, email, password } = req.body
+
+    const createdOwner = await ownerModel.create({
+        name,
+        email,
+        password
+    })
+
+    res.status(201).json(createdOwner)
+})
+
 
 router.get("/admin",isloggedIn,isOwner,async(req,res)=>{
     let user = await userModel.findOne({_id:req.user.id})
